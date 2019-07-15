@@ -40,6 +40,9 @@
 		<mapping class="br.pro.delfino.drogaria.domain.Pessoa" />
 		<mapping class="br.pro.delfino.drogaria.domain.Cliente" />
 		<mapping class="br.pro.delfino.drogaria.domain.Funcionario" />
+		<mapping class="br.pro.delfino.drogaria.domain.Usuario" />
+		<mapping class="br.pro.delfino.drogaria.domain.Venda" />
+		<mapping class="br.pro.delfino.drogaria.domain.ItemVenda" />
 		
 	</session-factory>
 
