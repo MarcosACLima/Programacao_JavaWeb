@@ -16,7 +16,7 @@ public class HibernateUtil {
 			Configuration configuracao = new Configuration().configure();
 			ServiceRegistry registro = new StandardServiceRegistryBuilder()
 					.applySettings(configuracao.getProperties()).build();
-			fabricaDeSessoes = configuracao.buildSessionFactory(registro);
+			fabricaDeSessoes = configuracao.buildSessionFactory(); // removido resgistro
 			}
 			return fabricaDeSessoes;
 		} catch (Throwable ex) {

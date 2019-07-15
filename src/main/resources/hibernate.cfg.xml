@@ -17,7 +17,7 @@
 		<!-- Pool de Conexões -->
 		<property name="connection.pool_size">1</property>
 
-		<!-- SQL dialect - dialeto para saber o idioma do banco para o hibernate se comunicar-->
+		<!-- SQL dialect - dialeto para saber o idioma do banco para o hibernate se comunicar -->
 		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 
 		<!-- Gerenciamento do Contexto das Sessões -->
@@ -31,12 +31,14 @@
 
 		<!-- Cria as tabelas do banco de dados -->
 		<property name="hbm2ddl.auto">create</property>
-		
+
 		<!-- Mapeamento das Entidades -->
-		<mapping class="br.pro.delfino.drogaria.domain.Estado"/>
-		<mapping class="br.pro.delfino.drogaria.domain.Fabricante"/>
-		<mapping class="br.pro.delfino.drogaria.domain.Cidade"/>
-		
+		<mapping class="br.pro.delfino.drogaria.domain.Estado" />
+		<mapping class="br.pro.delfino.drogaria.domain.Fabricante" />
+		<mapping class="br.pro.delfino.drogaria.domain.Cidade" />
+		<mapping class="br.pro.delfino.drogaria.domain.Produto" />
+		<mapping class="br.pro.delfino.drogaria.domain.Pessoa" />
+
 	</session-factory>
 
 </hibernate-configuration>
