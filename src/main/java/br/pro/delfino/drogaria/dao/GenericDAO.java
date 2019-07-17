@@ -1,7 +1,12 @@
 package br.pro.delfino.drogaria.dao;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -32,4 +37,35 @@ public class GenericDAO<Entidade> {
 			sessao.close();
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Entidade> listar() {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession(); // criar sessao
+		try {
+			/* Metodo modificado */
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+			CriteriaQuery<Entidade> consulta =construtor.createQuery(classe);
+			consulta.from(classe);
+			List<Entidade> resultado = sessao.createQuery(consulta).getResultList();
+			return resultado;
+		} catch (RuntimeException e) {
+			throw e;
+		} finally {
+			sessao.close();
+		}
+	}
+	
+	public Entidade buscar(Long codigo) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession(); // criar sessao
+		try {
+			/* Metodo modificado */
+			Entidade resultado = sessao.find(classe, codigo); // buscar
+			return resultado;
+		} catch (RuntimeException e) {
+			throw e;
+		} finally {
+			sessao.close();
+		}
+	} 
+	
 }
