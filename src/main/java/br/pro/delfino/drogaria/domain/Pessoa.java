@@ -2,6 +2,8 @@ package br.pro.delfino.drogaria.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @SuppressWarnings("serial")
 @Entity
@@ -39,6 +41,10 @@ public class Pessoa extends GenericDomain {
 	
 	@Column(length = 100, nullable = false)
 	private String email;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Cidade cidade; // Modificado add FK 
 	
 	public String getNome() {
 		return nome;
@@ -126,6 +132,14 @@ public class Pessoa extends GenericDomain {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
 	}
 	
 }

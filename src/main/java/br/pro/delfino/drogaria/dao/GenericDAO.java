@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -38,7 +37,6 @@ public class GenericDAO<Entidade> {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<Entidade> listar() {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession(); // criar sessao
 		try {
@@ -67,5 +65,39 @@ public class GenericDAO<Entidade> {
 			sessao.close();
 		}
 	} 
+	
+	public void excluir(Entidade entidade) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession(); // capturar sessao
+		Transaction transacao = null;
+		try {
+			transacao = sessao.beginTransaction(); // iniciar transacao
+			sessao.delete(entidade); // deletar
+			transacao.commit(); // confirmar
+		} catch (RuntimeException e) {
+			if(transacao != null) {
+				transacao.rollback(); // desfazer
+			}
+			throw e;
+		} finally {
+			sessao.close();
+		}
+	}
+	
+	public void editar(Entidade entidade) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession(); // capturar sessao
+		Transaction transacao = null;
+		try {
+			transacao = sessao.beginTransaction(); // iniciar transacao
+			sessao.update(entidade); // alterar
+			transacao.commit(); // confirmar
+		} catch (RuntimeException e) {
+			if(transacao != null) {
+				transacao.rollback(); // desfazer
+			}
+			throw e;
+		} finally {
+			sessao.close();
+		}
+	}
 	
 }
