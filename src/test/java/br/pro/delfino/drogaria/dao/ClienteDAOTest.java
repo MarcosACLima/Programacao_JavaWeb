@@ -79,6 +79,7 @@ public class ClienteDAOTest {
 						+ "\n UF: " + cliente.getPessoa().getCidade().getEstado().getNome());
 	}
 	
+	@Ignore
 	@Test
 	public void editar() {
 		Long codigoCliente = 1L;

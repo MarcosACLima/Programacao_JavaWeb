@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @SuppressWarnings("serial")
@@ -16,6 +18,7 @@ public class Funcionario extends GenericDomain {
 	private String carteiraTrabalho;
 	
 	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date dataAdmissao;
 	
 	@OneToOne
