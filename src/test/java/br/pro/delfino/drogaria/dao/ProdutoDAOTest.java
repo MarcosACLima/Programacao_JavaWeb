@@ -54,11 +54,11 @@ public class ProdutoDAOTest {
 		Produto produto = produtoDAO.buscar(codigo);
 		
 		System.out.println("\n Codigo produto: " + produto.getCodigo()
-		+ "\n Descricao: " + produto.getDescricao()
-		+ "\n Quantidade: " + produto.getQuantidade()
-		+ "\n Preco: " + produto.getPreco()
-		+ "\n Codigo Fabricante: " + produto.getFabricante().getCodigo()
-		+ "\n Fabricante: " + produto.getFabricante().getDescricao());
+						+ "\n Descricao: " + produto.getDescricao()
+						+ "\n Quantidade: " + produto.getQuantidade()
+						+ "\n Preco: " + produto.getPreco()
+						+ "\n Codigo Fabricante: " + produto.getFabricante().getCodigo()
+						+ "\n Fabricante: " + produto.getFabricante().getDescricao());
 	}
 	
 	@Ignore
