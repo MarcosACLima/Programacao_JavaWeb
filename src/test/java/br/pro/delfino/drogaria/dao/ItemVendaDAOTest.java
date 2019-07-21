@@ -6,17 +6,17 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import br.pro.delfino.drogaria.domain.Funcionario;
 import br.pro.delfino.drogaria.domain.ItemVenda;
 import br.pro.delfino.drogaria.domain.Produto;
+import br.pro.delfino.drogaria.domain.Venda;
 
 public class ItemVendaDAOTest {
 
 	@Ignore
 	@Test
 	public void salvar() {
-		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-		Funcionario funcionario = funcionarioDAO.buscar(2L);
+		VendaDAO vendaDAO = new VendaDAO();
+		Venda venda = vendaDAO.buscar(2L);
 		
 		ProdutoDAO produtoDAO = new ProdutoDAO();
 		Produto produto = produtoDAO.buscar(1L);
@@ -26,7 +26,7 @@ public class ItemVendaDAOTest {
 		itemVenda.setQuantidade(new Short("4"));
 		itemVenda.setPrecoParcial(new BigDecimal("6.74"));
 		itemVenda.setProduto(produto);
-		itemVenda.setFuncionario(funcionario);
+		itemVenda.setVenda(venda);
 		
 		ItemVendaDAO itemVendaDAO = new ItemVendaDAO();
 		itemVendaDAO.salvar(itemVenda);
@@ -43,7 +43,7 @@ public class ItemVendaDAOTest {
 							+ "\n Quantidade: " + itemVenda.getQuantidade()
 							+ "\n Preco Parcial: " + itemVenda.getPrecoParcial()
 							+ "\n Descricao Produto: " + itemVenda.getProduto().getDescricao()
-							+ "\n Nome Funcionario: " + itemVenda.getFuncionario().getPessoa().getNome());
+							+ "\n Horario da Venda: " + itemVenda.getVenda().getHorario());
 		}
 	}
 	
@@ -59,7 +59,7 @@ public class ItemVendaDAOTest {
 						+ "\n Quantidade: " + itemVenda.getQuantidade()
 						+ "\n Preco Parcial: " + itemVenda.getPrecoParcial()
 						+ "\n Descricao Produto: " + itemVenda.getProduto().getDescricao()
-						+ "\n Nome Funcionario: " + itemVenda.getFuncionario().getPessoa().getNome());
+						+ "\n Horario da Venda: " + itemVenda.getVenda().getHorario());
 	}
 	
 	@Ignore
