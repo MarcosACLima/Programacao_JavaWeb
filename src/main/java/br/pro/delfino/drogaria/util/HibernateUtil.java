@@ -14,6 +14,7 @@ public class HibernateUtil {
 		try {
 			if(fabricaDeSessoes == null) {
 			Configuration configuracao = new Configuration().configure();
+			@SuppressWarnings("unused")
 			ServiceRegistry registro = new StandardServiceRegistryBuilder()
 					.applySettings(configuracao.getProperties()).build();
 			fabricaDeSessoes = configuracao.buildSessionFactory(); // removido resgistro
