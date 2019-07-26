@@ -100,7 +100,7 @@ public class ClienteDAOTest {
 		
 		clienteDAO.editar(cliente);
 		
-		System.out.println("Dados Clientes apos editar: ");
+		System.out.println("Dados Cliente apos editar: ");
 		System.out.println("\n Codigo Cliente: " + cliente.getCodigo()
 						+ "\n Data do Cadastro: " + cliente.getDataCadastro()
 						+ "\n Situacao do Cadastro: " + cliente.getLiberado()

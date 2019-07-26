@@ -6,38 +6,9 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Fabricantes</title>
+	<title>Teste PrimeFaces</title>
 </h:head>
 <h:body>
-	<h:form>
-	<p:panel header="Fabricantes - Listagem">
-		<p:dataTable emptyMessage="Nenhum registro encontrado." paginator="true">
-		<f:facet name="header">
-			<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"/>
-		</f:facet>
-		
-		<p:column headerText="Descrição">
-		
-		</p:column>
-		
-		</p:dataTable>	
-	</p:panel>
-	</h:form>
-	
-	<p:dialog header="Fabricantes - Cadastro" widgetVar="dialogo"
-		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form>
-			<h:panelGrid columns="2">
-				<p:outputLabel value="Descrição:"/>
-				<p:inputText size="30" maxlength="50" />
-			</h:panelGrid>
-			
-			<h:panelGrid>
-				<p:commandButton value="Salvar"/>
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
-			</h:panelGrid>
-		</h:form>
-	</p:dialog>
-	
+	<p:editor />
 </h:body>
 </html>

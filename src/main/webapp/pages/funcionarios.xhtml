@@ -6,42 +6,62 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Fabricantes</title>
+	<title>Funcionarios</title>
 </h:head>
 <h:body>
-	<h:form>
-	<p:panel header="Fabricantes - Listagem">
+<h:form>
+	<p:panel header="Funcionarios - Listagem">
 		<p:dataTable emptyMessage="Nenhum registro encontrado." paginator="true">
 		<f:facet name="header">
 			<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"/>
 		</f:facet>
 		
-		<p:column headerText="Descrição">
+		<p:column headerText="Nome">
 		
 		</p:column>
 		
+		<p:column headerText="CPF">
+		
+		</p:column>
+		
+		<p:column headerText="Carteira de Trabalho">
+		
+		</p:column>
+		
+		<p:column headerText="Data de Admissão">
+		
+		</p:column>
+			
 		<p:column headerText="Opções">
 		
 		</p:column>
 		
-		</p:dataTable>	
+		</p:dataTable>
 	</p:panel>
 	</h:form>
 	
-	<p:dialog header="Fabricantes - Cadastro" widgetVar="dialogo"
+	<p:dialog header="Funcionarios - Cadastro" widgetVar="dialogo" 
 		draggable="false" resizable="false" modal="true" closable="false">
 		<h:form>
-			<h:panelGrid columns="2">
-				<p:outputLabel value="Descrição:"/>
-				<p:inputText size="30" maxlength="50" />
+			<h:panelGrid columns="2"> 
+				<p:outputLabel value="Pessoa:"/>
+				<p:selectOneMenu filter="true">
+					<f:selectItem itemValue="" itemLabel="Pessoa"/>
+				</p:selectOneMenu>
+							
+				<p:outputLabel value="Carteira de Trabalho:"/>
+				<p:inputText size="20" maxlength="15" />
+				
+				<p:outputLabel value="Data de Admissão:"/>
+				<p:calendar />
+				
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"/>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
 			</h:panelGrid>
+			
 		</h:form>
-	</p:dialog>
-	
-</h:body>
+	</p:dialog></h:body>
 </html>

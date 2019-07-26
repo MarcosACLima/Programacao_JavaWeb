@@ -6,17 +6,29 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Fabricantes</title>
+	<title>Itens Vendas</title>
 </h:head>
 <h:body>
-	<h:form>
-	<p:panel header="Fabricantes - Listagem">
+<h:form>
+	<p:panel header="Itens Vendas - Listagem">
 		<p:dataTable emptyMessage="Nenhum registro encontrado." paginator="true">
 		<f:facet name="header">
 			<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"/>
 		</f:facet>
 		
-		<p:column headerText="Descrição">
+		<p:column headerText="Descrição do Produto">
+		
+		</p:column>
+		
+		<p:column headerText="Venda">
+		
+		</p:column>
+		
+		<p:column headerText="Quantidade">
+		
+		</p:column>
+		
+		<p:column headerText="Valor Parcial">
 		
 		</p:column>
 		
@@ -24,24 +36,37 @@
 		
 		</p:column>
 		
-		</p:dataTable>	
+		</p:dataTable>
 	</p:panel>
 	</h:form>
 	
-	<p:dialog header="Fabricantes - Cadastro" widgetVar="dialogo"
+	<p:dialog header="Itens Vendas - Cadastro" widgetVar="dialogo" 
 		draggable="false" resizable="false" modal="true" closable="false">
 		<h:form>
-			<h:panelGrid columns="2">
-				<p:outputLabel value="Descrição:"/>
-				<p:inputText size="30" maxlength="50" />
+			<h:panelGrid columns="2"> 
+				<p:outputLabel value="Produto:" />
+				<p:selectOneMenu filter="true">
+					<f:selectItem itemValue="" itemLabel="Produto"/>
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Venda:" />
+				<p:selectOneMenu filter="true">
+					<f:selectItem itemValue="" itemLabel="Venda"/>
+				</p:selectOneMenu>
+				
+ 				<p:outputLabel value="Quantidade:" />
+ 				<p:inputText maxlength="5" size="10"/>
+				
+				<p:outputLabel value="Valor Parcial:"/>
+				<p:inputText maxlength="8" size="10"/>
+				
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"/>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
 			</h:panelGrid>
+			
 		</h:form>
-	</p:dialog>
-	
-</h:body>
+	</p:dialog></h:body>
 </html>
