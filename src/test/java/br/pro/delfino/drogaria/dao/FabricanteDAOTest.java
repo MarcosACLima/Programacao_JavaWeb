@@ -60,6 +60,7 @@ public class FabricanteDAOTest {
 		System.out.println(fabricante.getCodigo() + " - " + fabricante.getDescricao());
 	}
 	
+	@Ignore
 	@Test
 	public void editar() {
 		Long codigo = 5L;
@@ -76,6 +77,25 @@ public class FabricanteDAOTest {
 			System.out.println("Registro editado: ");
 			System.out.println(fabricante.getCodigo() + " - " + fabricante.getDescricao());
 		}
+	}
+	
+	@Ignore
+	@Test
+	public void mergeSalvar() {
+		Fabricante fabricante = new Fabricante();
+		fabricante.setDescricao("Fabricante Y");
+		
+		FabricanteDAO fabricanteDAO = new FabricanteDAO();
+		fabricanteDAO.merge(fabricante);
+	}
+	
+	@Ignore
+	@Test
+	public void merge() {
+		FabricanteDAO fabricanteDAO = new FabricanteDAO();
+		Fabricante fabricante = fabricanteDAO.buscar(8L);
+		fabricante.setDescricao("Umbrella");
+		fabricanteDAO.merge(fabricante);
 	}
 	
 }
