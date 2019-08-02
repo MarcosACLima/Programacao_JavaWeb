@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
@@ -65,15 +66,36 @@ public class EstadoBean implements Serializable{
 	public void salvar() {
 		try {
 			EstadoDAO estadoDAO = new EstadoDAO();
-			estadoDAO.salvar(estado);
+			estadoDAO.merge(estado);
 					
 			Messages.addGlobalInfo("Salvo com suceso! Estado: " + estado.getNome() + " Sigla: " + estado.getSigla());
 			
 			novo(); // reinstanciar novo
+			estados = estadoDAO.listar(); // mostrar dados atualizadps
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Ocorreu erro ao tentar salvar estado");
 			e.printStackTrace();
 		}
+	}
+	
+	public void excluir(ActionEvent evento) {
+		try {
+		estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado"); // componente clicado e  retorna atributo selecionado
+		
+		EstadoDAO estadoDAO = new EstadoDAO();
+		estadoDAO.excluir(estado);
+				
+		Messages.addGlobalInfo("Estado: " + estado.getNome() + " Sigla: " + estado.getSigla());
+		
+		estados = estadoDAO.listar();
+		} catch (RuntimeException e) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o estado");
+			e.printStackTrace();
+		}
+	}
+	
+	public void editar(ActionEvent evento) {
+		estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
 	}
 		
 }

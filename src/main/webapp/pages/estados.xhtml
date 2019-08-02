@@ -11,29 +11,48 @@
 <h:body>
 	<p:growl id="mensagem" />
   
-	<h:form>
+	<h:form id="formListagem">
 	<p:panel header="Estados - Listagem"> <!-- Cabecario do painel -->
-		<p:dataTable emptyMessage="Nenhum registro encontrado,"
+		<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado,"
 			paginator="true" value="#{estadoBean.estados}"
-			var="cursor_estado">
+			var="cursor_estado" rows="5">
 			<f:facet name="header">
 				<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" 
 				actionListener="#{estadoBean.novo}" update=":formCadastro:painel" />
 			</f:facet>
 			
-			<p:column headerText="Nome">
+			<p:column headerText="Nome" sortBy="#{cursor_estado.nome}" filterBy="#{cursor_estado.nome}">
 				<h:outputText value="#{cursor_estado.nome}" />
 			</p:column>
 			
-			<p:column headerText="Sigla">
+			<p:column headerText="Sigla" sortBy="#{cursor_estado.sigla}" filterBy="#{cursor_estado.sigla}">
 				<h:outputText value="#{cursor_estado.sigla}" />
 			</p:column>
 			
 			<p:column headerText="Opções">
-			
+				<p:commandButton icon="ui-icon-trash" 
+					actionListener="#{estadoBean.excluir}" 
+					update=":mensagem :formListagem:tabela">
+					<p:confirm header="Confirmação" message="Deseja excluir o Estado?"
+					icon="ui-icon-alert"  />
+				<f:attribute name="estadoSelecionado" value="#{cursor_estado}" />
+				</p:commandButton> 
+				<p:commandButton icon="ui-icon-pencil" actionListener="#{estadoBean.editar}"
+					update=":formListagem:tabela"
+					oncomplete="PF('dialogo').show();">
+					<f:attribute name="estadoSelecionado" value="#{cursor_estado}" />
+				</p:commandButton>
 			</p:column>
 			
 		</p:dataTable>
+		
+	    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+	        <p:commandButton value="Sim" type="button" 
+	        	styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+	        <p:commandButton value="Não" type="button" 
+	       		styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	    </p:confirmDialog>      
+		
 	</p:panel>
 	</h:form>
 	
@@ -50,7 +69,8 @@
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" actionListener="#{estadoBean.salvar}" update=":mensagem :formCadastro:painel"/>
+				<p:commandButton value="Salvar" actionListener="#{estadoBean.salvar}" 
+				update=":mensagem :formCadastro:painel :formListagem:tabela" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
 			</h:panelGrid>
 		</h:form>
