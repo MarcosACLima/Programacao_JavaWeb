@@ -35,10 +35,10 @@
 					update=":mensagem :formListagem:tabela">
 					<p:confirm header="Confirmação" message="Deseja excluir o Estado?"
 					icon="ui-icon-alert"  />
-				<f:attribute name="estadoSelecionado" value="#{cursor_estado}" />
+					<f:attribute name="estadoSelecionado" value="#{cursor_estado}" />
 				</p:commandButton> 
 				<p:commandButton icon="ui-icon-pencil" actionListener="#{estadoBean.editar}"
-					update=":formListagem:tabela"
+					update=":formCadastro:painel"
 					oncomplete="PF('dialogo').show();">
 					<f:attribute name="estadoSelecionado" value="#{cursor_estado}" />
 				</p:commandButton>

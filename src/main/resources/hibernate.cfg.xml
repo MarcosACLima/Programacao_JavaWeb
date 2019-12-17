@@ -12,7 +12,7 @@
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="connection.url">jdbc:mysql://127.0.0.1:3306/drogaria</property>
 		<property name="connection.username">root</property>
-		<property name="connection.password">123456789</property>
+		<property name="connection.password">123456</property>
 
 		<!-- Pool de Conexões -->
 		<property name="connection.pool_size">1</property>
@@ -33,16 +33,16 @@
 		<property name="hbm2ddl.auto">validate</property>
 
 		<!-- Mapeamento das Entidades -->
-		<mapping class="br.pro.delfino.drogaria.domain.Estado" />
-		<mapping class="br.pro.delfino.drogaria.domain.Fabricante" />
-		<mapping class="br.pro.delfino.drogaria.domain.Cidade" />
-		<mapping class="br.pro.delfino.drogaria.domain.Produto" />
-		<mapping class="br.pro.delfino.drogaria.domain.Pessoa" />
-		<mapping class="br.pro.delfino.drogaria.domain.Cliente" />
-		<mapping class="br.pro.delfino.drogaria.domain.Funcionario" />
-		<mapping class="br.pro.delfino.drogaria.domain.Usuario" />
-		<mapping class="br.pro.delfino.drogaria.domain.Venda" />
-		<mapping class="br.pro.delfino.drogaria.domain.ItemVenda" />
+		<mapping class="br.pro.dl.drogaria.domain.Estado" />
+		<mapping class="br.pro.dl.drogaria.domain.Fabricante" />
+		<mapping class="br.pro.dl.drogaria.domain.Cidade" />
+		<mapping class="br.pro.dl.drogaria.domain.Produto" />
+		<mapping class="br.pro.dl.drogaria.domain.Pessoa" />
+		<mapping class="br.pro.dl.drogaria.domain.Cliente" />
+		<mapping class="br.pro.dl.drogaria.domain.Funcionario" />
+		<mapping class="br.pro.dl.drogaria.domain.Usuario" />
+		<mapping class="br.pro.dl.drogaria.domain.Venda" />
+		<mapping class="br.pro.dl.drogaria.domain.ItemVenda" />
 		
 	</session-factory>
 
