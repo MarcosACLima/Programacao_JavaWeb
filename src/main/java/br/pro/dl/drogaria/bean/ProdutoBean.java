@@ -38,7 +38,7 @@ public class ProdutoBean implements Serializable {
 		try {
 			produto = new Produto();
 
-			fabricantes = new FabricanteDAO().listar();
+			fabricantes = new FabricanteDAO().listar("descricao");
 
 		} catch (RuntimeException e) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar gerar uma novo Produto");
@@ -53,7 +53,7 @@ public class ProdutoBean implements Serializable {
 
 			produto = new Produto();
 
-			fabricantes = new FabricanteDAO().listar();
+			fabricantes = new FabricanteDAO().listar("descricao");
 
 			produtos = produtoDAO.listar();
 
@@ -84,7 +84,7 @@ public class ProdutoBean implements Serializable {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 			
-			fabricantes = new FabricanteDAO().listar();
+			fabricantes = new FabricanteDAO().listar("descricao");
 		} catch (RuntimeException e) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar editar o Produto");
 			e.printStackTrace();
