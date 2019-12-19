@@ -113,4 +113,21 @@ public class CidadeDAOTest {
 		+ "\n UF: " + cidade.getEstado().getSigla());
 	}
 	
+	@Ignore
+	@Test
+	public void buscarPorEstado() {
+		Long estadoCodigo = 5L;
+		
+		CidadeDAO cidadeDAO = new CidadeDAO();
+		List<Cidade> resultado = cidadeDAO.buscarPorEstado(estadoCodigo);
+		
+		for (Cidade cidade : resultado) {
+			System.out.println("\n Codigo: " + cidade.getCodigo()
+							+ "\n Cidade: " + cidade.getNome()
+							+ "\n Codigo Estado: " + cidade.getEstado().getCodigo()
+							+ "\n Estado: " + cidade.getEstado().getNome()
+							+ "\n UF: " + cidade.getEstado().getSigla());
+		}
+	}
+	
 }
