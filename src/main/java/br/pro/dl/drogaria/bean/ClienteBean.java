@@ -40,7 +40,7 @@ public class ClienteBean implements Serializable {
 			cliente = new Cliente();
 			pessoas = new PessoaDAO().listar("nome");
 		} catch (RuntimeException e) {
-			Messages.addGlobalError("ocorreu um errp ao tentar gerar um novo cliente");
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar um novo cliente");
 			e.printStackTrace();
 		}
 	}
