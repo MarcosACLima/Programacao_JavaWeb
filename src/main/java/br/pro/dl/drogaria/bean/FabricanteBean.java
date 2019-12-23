@@ -1,14 +1,20 @@
 package br.pro.dl.drogaria.bean;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
 
 import org.omnifaces.util.Messages;
+
+import com.google.gson.Gson;
 
 import br.pro.dl.drogaria.dao.FabricanteDAO;
 import br.pro.dl.drogaria.domain.Fabricante;
@@ -21,10 +27,30 @@ public class FabricanteBean implements Serializable {
 	private Fabricante fabricante;
 	private List<Fabricante> fabricantes;
 	
+	/*
 	@PostConstruct
 	public void listar() {
 		try {
 			fabricantes = new FabricanteDAO().listar();
+		} catch (RuntimeException e) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar listar os Fabricantes");
+			e.printStackTrace();
+		}
+	}
+	*/
+	
+	/* Rest*/
+	@PostConstruct
+	public void listar() {
+		try {
+			Client cliente = ClientBuilder.newClient(); 
+			WebTarget caminho = cliente.target("http://localhost:8080/Drogaria/rest/fabricante");  // target - passar a url, endereços de chamada
+			String json = caminho.request().get(String.class); 
+			
+			Gson gson = new Gson();
+			Fabricante[] vetor = gson.fromJson(json, Fabricante[].class); 
+			
+			fabricantes = Arrays.asList(vetor); // converter vetor para List
 		} catch (RuntimeException e) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar listar os Fabricantes");
 			e.printStackTrace();
