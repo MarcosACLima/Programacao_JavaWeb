@@ -15,7 +15,7 @@
 	<p:panel header="Estados - Listagem"> <!-- Cabecario do painel -->
 		<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado,"
 			paginator="true" value="#{estadoBean.estados}"
-			var="cursor_estado" rows="5">
+			var="cursor_estado" rows="15">
 			<f:facet name="header">
 				<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" 
 				actionListener="#{estadoBean.novo}" update=":formCadastro:painel" >

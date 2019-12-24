@@ -49,7 +49,7 @@ public class PessoaBean implements Serializable {
 			
 			cidades = new ArrayList<Cidade>(); /// iniciar cidade vazia
 		} catch (RuntimeException e) {
-			Messages.addGlobalError("ocorreu um errp ao tentar gerar uma nova pessoa");
+			Messages.addGlobalError("ocorreu um erro ao tentar gerar uma nova pessoa");
 			e.printStackTrace();
 		}
 	}
@@ -64,7 +64,7 @@ public class PessoaBean implements Serializable {
 			
 			Messages.addGlobalInfo("Pessoa salva com sucesso!");
 		} catch (RuntimeException e) {
-			Messages.addGlobalError("ocorreu um errp ao tentar salvar a pessoa");
+			Messages.addGlobalError("ocorreu um erro ao tentar salvar a pessoa");
 			e.printStackTrace();
 		}
 	}
@@ -72,7 +72,10 @@ public class PessoaBean implements Serializable {
 	public void editar(ActionEvent evento) {
 		try {
 			pessoa = (Pessoa) evento.getComponent().getAttributes().get("pessoaSelecionada");
-			cidades = new CidadeDAO().listar("nome");
+			estado = pessoa.getCidade().getEstado(); // retorna estado do objeto
+			estados = new  EstadoDAO().listar("nome");
+			
+			popular(); 
 		} catch (RuntimeException e) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar editar a Pessoa");
 		}

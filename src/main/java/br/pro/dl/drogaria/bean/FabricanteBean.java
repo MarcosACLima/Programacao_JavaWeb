@@ -10,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 
 import org.omnifaces.util.Messages;
@@ -61,6 +62,7 @@ public class FabricanteBean implements Serializable {
 		fabricante = new Fabricante();
 	}
 	
+	/*
 	public void salvar() {
 		try {
 			new FabricanteDAO().merge(fabricante);
@@ -72,11 +74,36 @@ public class FabricanteBean implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	*/
+	
+	/**	Rest 	 */
+	public void salvar() {
+		try {
+			Client cliente = ClientBuilder.newClient();
+			WebTarget caminho = cliente.target("http://localhost:8080/Drogaria/rest/fabricante");
+			Gson gson = new Gson();
+			
+			String json = gson.toJson(fabricante);
+			caminho.request().post(Entity.json(json)); // post aceita Entity
+			
+			novo();
+			
+			json = caminho.request().get(String.class);
+			Fabricante[] vetor = gson.fromJson(json, Fabricante[].class); 
+			fabricantes = Arrays.asList(vetor);
+			
+			Messages.addGlobalInfo("Salvo com suceso! Fabricante: " + fabricante.getDescricao());
+		} catch (RuntimeException e) {
+			Messages.addGlobalError("Ocorreu erro ao tentar salvar Fabricante");
+			e.printStackTrace();
+		}
+	}
 	
 	public void editar(ActionEvent evento) {
 		fabricante = (Fabricante) evento.getComponent().getAttributes().get("fabricanteSelecionado");
 	}
 	
+	/*
 	public void excluir(ActionEvent evento) {
 		try {
 			fabricante = (Fabricante) evento.getComponent().getAttributes().get("fabricanteSelecionado");
@@ -86,6 +113,30 @@ public class FabricanteBean implements Serializable {
 			Messages.addGlobalInfo("Removido Fabricante: " + fabricante.getDescricao());
 			
 			fabricantes = fabricanteDAO.listar();
+		} catch (RuntimeException e) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o Fabricante");
+			e.printStackTrace();
+		}
+	}
+	*/
+	
+	/** Rest */
+	public void excluir() {
+		try {
+			Client cliente = ClientBuilder.newClient();
+			WebTarget caminho = cliente.target("http://localhost:8080/Drogaria/rest/fabricante");
+			Gson gson = new Gson();
+			
+			String json = gson.toJson(fabricante);
+			caminho.request().delete(String.class); // post aceita Entity
+			
+			novo();
+			
+			json = caminho.request().get(String.class);
+			Fabricante[] vetor = gson.fromJson(json, Fabricante[].class); 
+			fabricantes = Arrays.asList(vetor);
+			
+			Messages.addGlobalInfo("Removido Fabricante: " + fabricante.getDescricao());
 		} catch (RuntimeException e) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o Fabricante");
 			e.printStackTrace();

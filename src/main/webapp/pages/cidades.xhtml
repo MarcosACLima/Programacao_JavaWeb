@@ -14,7 +14,7 @@
 	<h:form id="formListagem">
 	<p:panel header="Cidades - Listagem">
 		<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado." paginator="true"
-		value="#{cidadeBean.cidades}" var="cursor_cidade" rows="5">
+		value="#{cidadeBean.cidades}" var="cursor_cidade" rows="15">
 		<f:facet name="header">
 			<p:commandButton value="Novo" actionListener="#{cidadeBean.novo}"
 			oncomplete="PF('dialogo').show();" update=":mensagem :formCadastro:painel" >
