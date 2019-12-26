@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
@@ -24,6 +25,9 @@ public class Produto extends GenericDomain {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Fabricante fabricante;
+	
+	@Transient
+	private String caminho;
 
 	public String getDescricao() {
 		return descricao;
@@ -57,6 +61,12 @@ public class Produto extends GenericDomain {
 		this.fabricante = fabricante;
 	}
 	
-	
-	
+	public String getCaminho() {
+		return caminho;
+	}
+
+	public void setCaminho(String caminho) {
+		this.caminho = caminho;
+	}
+
 }

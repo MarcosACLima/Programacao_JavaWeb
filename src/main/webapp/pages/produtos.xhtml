@@ -75,7 +75,7 @@
 	
 	<p:dialog header="Produtos - Cadastro" widgetVar="dialogo" 
 		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form id="formCadastro">
+		<h:form id="formCadastro" enctype="multipart/form-data">
 			<h:panelGrid id="painel" columns="2"> 
 				<p:outputLabel for="descricao" value="Descrição:"/>
 				<p:inputText id="descricao" maxlength="50" size="30" value="#{produtoBean.produto.descricao}"
@@ -106,6 +106,12 @@
 					<f:selectItems value="#{produtoBean.fabricantes}" var="fabricante"
 					itemValue="#{fabricante}" itemLabel="#{fabricante.descricao}" />
 				</p:selectOneMenu>
+				
+				<p:outputLabel for="foto" value="Foto: ">
+					<p:fileUpload id="foto" mode="advanced" fileUploadListener="#{produtoBean.upload}"
+						update=":mensagem" auto="true" />
+				</p:outputLabel>
+				
 			</h:panelGrid>
 			
 			<h:panelGrid columns="2">
