@@ -118,13 +118,15 @@ public class GenericDAO<Entidade> {
 		}
 	}
 	
-	public void merge(Entidade entidade) {
+	@SuppressWarnings("unchecked")
+	public Entidade merge(Entidade entidade) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession(); // capturar sessao
 		Transaction transacao = null;
 		try {
 			transacao = sessao.beginTransaction(); // iniciar transacao
-			sessao.merge(entidade); // salvar ou editar
+			Entidade entRetorno = (Entidade) sessao.merge(entidade); // salvar ou editar
 			transacao.commit(); // confirmar
+			return entRetorno;
 		} catch (RuntimeException e) {
 			if(transacao != null) {
 				transacao.rollback(); // desfazer
