@@ -9,72 +9,92 @@
 	<title>Vendas</title>
 </h:head>
 <h:body>
-<h:form>
-	<p:panel header="Vendas - Listagem">
-		<p:dataTable emptyMessage="Nenhum registro encontrado." paginator="true">
-		<f:facet name="header">
-			<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"/>
-		</f:facet>
-		
-		<p:column headerText="Nome do Funcionario">
-		
-		</p:column>
-		
-		<p:column headerText="CPF do Funcionario">
-		
-		</p:column>
-		
-		<p:column headerText="Nome do Cliente">
-		
-		</p:column>
-		
-		<p:column headerText="CPF do Cliente">
-		
-		</p:column>
-		
-		<p:column headerText="Horario">
-		
-		</p:column>
-		
-		<p:column headerText="Valor Total">
-		
-		</p:column>
-			
-		<p:column headerText="Opções">
-		
-		</p:column>
-		
-		</p:dataTable>
-	</p:panel>
+
+	<p:growl id="mensegem" />
+
+	<h:form id="formulario">
+		<p:panel header="Produtos">
+			<p:dataTable id="tabelaProduto"
+				emptyMessage="Nenhum registro encontrado." paginator="true"
+				value="#{vendaBean.produtos}" var="produto" rows="5">
+
+				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
+					sortBy="#{produto.descricao}">
+					<h:outputText value="#{produto.descricao}" />
+				</p:column>
+
+				<p:column headerText="Quantidade" sortBy="#{produto.quantidade}">
+					<h:outputText value="#{produto.quantidade}" />
+				</p:column>
+
+				<p:column headerText="Preço" sortBy="#{produto.preco}">
+					<h:outputText value="#{produto.preco}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Fabricante"
+					filterBy="#{produto.fabricante.descricao}"
+					sortBy="#{produto.fabricante.descricao}">
+					<h:outputText value="#{produto.fabricante.descricao}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-plus"
+						actionListener="#{vendaBean.adicionar}"
+						update=":formulario:tabelaCompras :formulario:painelFinalizacao">
+						<f:attribute name="produtoSelecionado" value="#{produto}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+		</p:panel>
+
+		<p:panel header="Carrinho de Compras">
+			<p:dataTable id="tabelaCompras"
+				emptyMessage="Nenhum registro encontrado." paginator="true"
+				value="#{vendaBean.itensVenda}" var="itemVenda" rows="5">
+
+				<p:column headerText="Descrição">
+					<h:outputText value="#{itemVenda.produto.descricao}" />
+				</p:column>
+
+				<p:column headerText="Valor Unitário">
+					<h:outputText value="#{itemVenda.produto.preco}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Qtde.">
+					<h:outputText value="#{itemVenda.quantidade}" />
+				</p:column>
+
+				<p:column headerText="Preço Parcial">
+					<h:outputText value="#{itemVenda.precoParcial}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-minus"
+						actionListener="#{vendaBean.remover}"
+						update=":formulario:tabelaCompras :formulario:painelFinalizacao">
+						<f:attribute name="itemSelecionado" value="#{itemVenda}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+		</p:panel>
+
+		<p:panel header="Finalização">
+			<h:panelGrid id="painelFinalizacao" columns="3">
+				<p:outputLabel value="Total: R$" />
+				<h:outputText value="#{vendaBean.venda.precoTotal}" >
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:outputText>
+				<p:commandButton value="Finalizar" />
+			</h:panelGrid>
+		</p:panel>
+
 	</h:form>
-	
-	<p:dialog header="Vendas - Cadastro" widgetVar="dialogo" 
-		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form>
-			<h:panelGrid columns="2"> 
-				<p:outputLabel value="Funcionario:" />
-				<p:selectOneMenu filter="true">
-					<f:selectItem itemValue="" itemLabel="Funcionario"/>
-				</p:selectOneMenu>
-				
-				<p:outputLabel value="Cliente:" />
-				<p:selectOneMenu filter="true">
-					<f:selectItem itemValue="" itemLabel="Cliente"/>
-				</p:selectOneMenu>
-				
- 				<p:outputLabel value="Horario:" />
-        		<p:calendar pattern="MM/dd/yyyy HH:mm:ss" />				
-				
-				<p:outputLabel value="Valor Total:"/>
-				<p:inputText maxlength="8" size="10"/>
-				
-			</h:panelGrid>
-			
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"/>
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"/>
-			</h:panelGrid>
-			
-		</h:form>
-	</p:dialog></h:body>
+
+</h:body>
 </html>

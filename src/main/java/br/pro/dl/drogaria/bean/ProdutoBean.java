@@ -34,9 +34,9 @@ public class ProdutoBean implements Serializable {
 	@PostConstruct
 	public void listar() {
 		try {
-			produtos = new ProdutoDAO().listar();
+			produtos = new ProdutoDAO().listar("descricao");
 		} catch (RuntimeException e) {
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar lista ps produtos");
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar lista os produtos");
 			e.printStackTrace();
 		}
 	}
