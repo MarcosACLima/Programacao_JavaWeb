@@ -3,6 +3,7 @@ package br.pro.dl.drogaria.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +13,12 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
+import br.pro.dl.drogaria.dao.ClienteDAO;
+import br.pro.dl.drogaria.dao.FuncionarioDAO;
 import br.pro.dl.drogaria.dao.ProdutoDAO;
+import br.pro.dl.drogaria.dao.VendaDAO;
+import br.pro.dl.drogaria.domain.Cliente;
+import br.pro.dl.drogaria.domain.Funcionario;
 import br.pro.dl.drogaria.domain.ItemVenda;
 import br.pro.dl.drogaria.domain.Produto;
 import br.pro.dl.drogaria.domain.Venda;
@@ -25,6 +31,8 @@ public class VendaBean implements Serializable {
 	private Venda venda;
 	private List<Produto> produtos;
 	private List<ItemVenda> itensVenda;
+	private List<Cliente> clientes;
+	private List<Funcionario> funcionarios;
 
 	@PostConstruct
 	public void listar() {
@@ -95,6 +103,35 @@ public class VendaBean implements Serializable {
 			venda.setPrecoTotal(venda.getPrecoTotal().add(itemVenda.getPrecoParcial()));
 		}
 	}
+	
+	public void finalizar() {
+		try {
+			venda.setHorario(new Date());
+			venda.setCliente(null);
+			venda.setFuncionario(null);
+			funcionarios = new FuncionarioDAO().listarOrdenado();
+			
+			clientes = new ClienteDAO().listarOrdenado();
+		} catch (RuntimeException e) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a venda");
+			e.printStackTrace();
+		}
+	}
+	
+	public void salvar() {
+		try {
+			if (venda.getPrecoTotal().signum() == 0) {
+				Messages.addGlobalError("Informe um item para a venda");
+				return;
+			}
+			new VendaDAO().salvar(venda, itensVenda);
+			listar();
+			Messages.addGlobalInfo("Venda realizada com sucesso!");
+		} catch (RuntimeException e) {
+			Messages.addGlobalError("ocorreu um erro ao tentar salvar a venda");
+			e.printStackTrace();
+		}
+	}
 
 	public List<Produto> getProdutos() {
 		return produtos;
@@ -118,6 +155,22 @@ public class VendaBean implements Serializable {
 
 	public void setVenda(Venda venda) {
 		this.venda = venda;
+	}
+
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
+	}
+
+	public void setFuncionarios(List<Funcionario> funcionarios) {
+		this.funcionarios = funcionarios;
 	}
 
 }
