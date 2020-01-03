@@ -5,14 +5,19 @@
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Drogaria Data Adapter "/>
+	<parameter name="PRODUTO_DESCRICAO" class="java.lang.String"/>
+	<parameter name="FABRICANTE_DESCRICAO" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT drogaria.`Produto`.descricao AS pdescricao, 
+		<![CDATA[SELECT drogaria.`Produto`.descricao AS pdescricao,
 	drogaria.`Produto`.preco,
 	drogaria.`Produto`.quantidade,
 	drogaria.`Fabricante`.descricao AS fdescricao
 FROM drogaria.`Produto`
 	INNER JOIN drogaria.`Fabricante` ON 
 	 drogaria.`Produto`.fabricante_codigo = drogaria.`Fabricante`.codigo 
+WHERE 
+	 drogaria.`Produto`.descricao LIKE $P{PRODUTO_DESCRICAO} 
+	 AND drogaria.`Fabricante`.descricao LIKE $P{FABRICANTE_DESCRICAO} 
 ORDER BY drogaria.`Produto`.descricao ASC,
 	drogaria.`Fabricante`.descricao ASC]]>
 	</queryString>

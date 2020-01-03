@@ -6,14 +6,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -21,6 +26,11 @@ import br.pro.dl.drogaria.dao.FabricanteDAO;
 import br.pro.dl.drogaria.dao.ProdutoDAO;
 import br.pro.dl.drogaria.domain.Fabricante;
 import br.pro.dl.drogaria.domain.Produto;
+import br.pro.dl.drogaria.util.HibernateUtil;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 
 @SuppressWarnings("serial")
 @ViewScoped
@@ -122,6 +132,39 @@ public class ProdutoBean implements Serializable {
 		} catch (IOException e) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar realizar o upload de arquivo");
 			e.printStackTrace();
+		}
+	}
+	
+	public void imprimir() {
+		try {
+			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent("formListagem:tabela");
+			Map<String, Object> filtros = tabela.getFilters();
+			String pdescricao = (String) filtros.get("descricao");
+			String fdescricao = (String) filtros.get("fabricante.descricao");
+			
+			String caminho = Faces.getRealPath("/reports/produtos.jasper");
+
+			Map<String, Object> parametros = new HashMap<>();
+			if (pdescricao == null) {
+				parametros.put("PRODUTO_DESCRICAO", "%%");
+			} else {
+				parametros.put("PRODUTO_DESCRICAO", "%" + pdescricao + "%");
+			}
+			
+			if (fdescricao == null) {
+				parametros.put("FABRICANTE_DESCRICAO", "%%");
+			} else {
+				parametros.put("FABRICANTE_DESCRICAO", "%" + pdescricao + "%");
+			}
+			
+			Connection conexao = HibernateUtil.getConexao();
+
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
+			
+			JasperPrintManager.printReport(relatorio, true);
+		} catch (JRException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
 		}
 	}
 
