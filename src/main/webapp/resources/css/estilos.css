@@ -13,3 +13,7 @@
 .divCabecalho {
 	padding-bottom: 10px;
 }
+
+.ui-widget, .ui-widget, .ui-widget {
+	font-size: 105%;
+}
