@@ -63,15 +63,6 @@ ORDER BY drogaria.`Produto`.descricao ASC,
 				<text><![CDATA[DESCRIÇÃO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="120" y="0" width="100" height="30" uuid="2ef731e8-b9fe-49b5-8b80-402da1cee8dc">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c167b14e-1dbb-49d4-8204-e2a997599a3d"/>
-				</reportElement>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[PREÇO]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="230" y="0" width="100" height="30" uuid="01fbdee1-4027-41a8-917f-775656e1278c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="107332e2-ef7e-4d91-b50e-83da5550b262"/>
 				</reportElement>
@@ -89,6 +80,12 @@ ORDER BY drogaria.`Produto`.descricao ASC,
 				</textElement>
 				<text><![CDATA[FABRICANTE]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="113" y="0" width="100" height="30" uuid="d7d50b6e-e2c4-4ac0-8556-4eb979633214">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a1f10f53-49fd-4f2c-9bc9-d63b5b49ed78"/>
+				</reportElement>
+				<text><![CDATA[PREÇO]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -101,15 +98,6 @@ ORDER BY drogaria.`Produto`.descricao ASC,
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pdescricao}]]></textFieldExpression>
-			</textField>
-			<textField pattern="0,00">
-				<reportElement x="120" y="0" width="100" height="30" uuid="c74a27cc-da6b-4b9c-bef4-eb068e547a03">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c167b14e-1dbb-49d4-8204-e2a997599a3d"/>
-				</reportElement>
-				<textElement markup="rtf">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{preco}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="230" y="2" width="100" height="30" uuid="43ea9af8-892a-4f0e-9cab-572d65c4245d">
@@ -128,6 +116,15 @@ ORDER BY drogaria.`Produto`.descricao ASC,
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fdescricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤# ,##0.##;¤ -##0.##">
+				<reportElement x="113" y="2" width="100" height="30" uuid="12155656-cee4-4ddc-bcde-db4afc654188">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a1f10f53-49fd-4f2c-9bc9-d63b5b49ed78"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{preco}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
