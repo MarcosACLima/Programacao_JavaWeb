@@ -17,7 +17,8 @@
 		<!-- Pool de Conexões -->
 		<property name="connection.pool_size">1</property>
 
-		<!-- SQL dialect - dialeto para saber o idioma do banco para o hibernate se comunicar -->
+		<!-- SQL dialect - dialeto para saber o idioma do banco para o hibernate 
+			se comunicar -->
 		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 
 		<!-- Gerenciamento do Contexto das Sessões -->
@@ -43,8 +44,10 @@
 		<mapping class="br.pro.dl.drogaria.domain.Usuario" />
 		<mapping class="br.pro.dl.drogaria.domain.Venda" />
 		<mapping class="br.pro.dl.drogaria.domain.ItemVenda" />
-		<mapping class="br.pro.dl.drogaria.domain.Historico"/>
-		
+		<mapping class="br.pro.dl.drogaria.domain.Historico" />
+		<mapping class="br.pro.dl.drogaria.domain.Caixa" />
+		<mapping class="br.pro.dl.drogaria.domain.Movimentacao" />
+
 	</session-factory>
 
 </hibernate-configuration>
