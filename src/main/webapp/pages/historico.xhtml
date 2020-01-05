@@ -6,17 +6,17 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Produtos</title>
+	<title>Histórico</title>
 </h:head>
 <h:body>
 	<p:growl id="mensagem" />
 	<h:form id="formulario">
-		<p:panel header="Produtos">
+		<p:panel header="Histórico">
 			<h:panelGrid columns="3">
 				<p:outputLabel for="codigo" value="Código:" />
 				<p:inputText id="codigo" size="13" maxlength="10" required="true"
 					requiredMessage="O campo Código é obrigatório"
-					value="#{buscarProdutoBean.produto.codigo}"
+					value="#{historicoBean.produto.codigo}"
 					converterMessage="O valor informado no campo Código é inválido"
 					validatorMessage="Informe um valor entre 1 a 9999999999999"	>
 					<f:validateLongRange minimum="1" maximum="9999999999999"/>
@@ -24,27 +24,40 @@
 
 				<p:commandButton icon="ui-icon-search"
 					update=":mensagem :formulario:painel"
-					actionListener="#{buscarProdutoBean.buscar}" />
+					actionListener="#{historicoBean.buscar}" 
+					process="@this :formulario:codigo" />
 			</h:panelGrid>
 
 			<h:panelGroup id="painel" layout="block">
 				<h:panelGrid columns="2"
-					rendered="#{buscarProdutoBean.exibeComponente}">
+					rendered="#{historicoBean.exibeComponente}">
 					<p:outputLabel value="Descrição:" />
-					<h:outputText value="#{buscarProdutoBean.produto.descricao}" />
+					<h:outputText value="#{historicoBean.produto.descricao}" />
 
 					<p:outputLabel value="Preço: R$" />
-					<h:outputText value="#{buscarProdutoBean.produto.preco}">
+					<h:outputText value="#{historicoBean.produto.preco}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 
 					<p:outputLabel value="Quantidade:" />
-					<h:outputText value="#{buscarProdutoBean.produto.quantidade}" />
+					<h:outputText value="#{historicoBean.produto.quantidade}" />
 
 					<p:outputLabel value="Fabricante:" />
 					<h:outputText
-						value="#{buscarProdutoBean.produto.fabricante.descricao}" />
+						value="#{historicoBean.produto.fabricante.descricao}" />
+					
+					<p:outputLabel for="observacoes" value="Observações:" />	
+					<p:inputTextarea id="observacoes" required="true" 
+					 	requiredMessage="O campo Observações é obrigatório" 
+					 	rows="5" cols="50" autoResize="false" value="#{historicoBean.historico.observacoes}" />
+					
 				</h:panelGrid>
+				
+				<h:panelGrid columns="1" rendered="#{historicoBean.exibeComponente}" > 
+					<p:commandButton value="Salvar" actionListener="#{historicoBean.salvar}" 
+				 	 	update=":mensagem" />
+				</h:panelGrid>
+				
 			</h:panelGroup>
 
 		</p:panel>

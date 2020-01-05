@@ -43,6 +43,7 @@
 		<mapping class="br.pro.dl.drogaria.domain.Usuario" />
 		<mapping class="br.pro.dl.drogaria.domain.Venda" />
 		<mapping class="br.pro.dl.drogaria.domain.ItemVenda" />
+		<mapping class="br.pro.dl.drogaria.domain.Historico"/>
 		
 	</session-factory>
 
