@@ -73,8 +73,10 @@
 					<p:outputLabel for="sigla" value="Sigla:" />
 					<p:inputText id="sigla" size="10" maxlength="2"
 						value="#{estadoBean.estado.sigla}" required="true"
-						requiredMessage="O campo 'Sigla' é obrigatório" />
-
+						requiredMessage="O campo 'Sigla' é obrigatório" 
+						converter="upperCaseConverter" >
+						<p:ajax event="blur" update="@this" />
+					</p:inputText>
 				</h:panelGrid>
 
 				<h:panelGrid columns="2">
