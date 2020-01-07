@@ -125,6 +125,13 @@
 			<version>6.11.0</version>
 		</dependency>
 
+		<!-- Apache Shiro Core - https://mvnrepository.com/artifact/org.apache.shiro/shiro-core -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>1.4.2</version>
+		</dependency>
+
 	</dependencies>
 
 </project>

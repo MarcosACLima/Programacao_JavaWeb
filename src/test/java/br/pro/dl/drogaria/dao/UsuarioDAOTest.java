@@ -2,6 +2,7 @@ package br.pro.dl.drogaria.dao;
 
 import java.util.List;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -16,11 +17,16 @@ public class UsuarioDAOTest {
 	@Test
 	public void salvar() {
 		PessoaDAO pessoaDAO = new PessoaDAO();
-		Pessoa pessoa = pessoaDAO.buscar(1L);
+		Pessoa pessoa = pessoaDAO.buscar(3L);
+		
 		
 		Usuario usuario = new Usuario();
-		usuario.setSenha("abc123");
-		usuario.setTipo('C');
+		usuario.setSenhaSemCriptografia("123456");
+		
+		SimpleHash hash = new SimpleHash("md5", usuario.getSenhaSemCriptografia());
+		usuario.setSenha(hash.toHex());
+		
+		usuario.setTipo('A');
 		usuario.setAtivo(true);
 		usuario.setPessoa(pessoa);
 		
@@ -75,10 +81,10 @@ public class UsuarioDAOTest {
 						+ "\n Nome do Usuario: " + usuario.getPessoa().getNome());
 	}
 	
-//	@Ignore
+	@Ignore
 	@Test
 	public void editar() {
-		Long codigo = 2L;
+		Long codigo = 6L;
 		
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		Usuario usuario = usuarioDAO.buscar(codigo);
@@ -91,11 +97,15 @@ public class UsuarioDAOTest {
 						+ "\n Nome do Usuario: " + usuario.getPessoa().getNome());
 		
 		PessoaDAO pessoaDAO = new PessoaDAO();
-		Pessoa pessoa = pessoaDAO.buscar(1L);
+		Pessoa pessoa = pessoaDAO.buscar(10L);
 		
 		usuario.setAtivo(true);
-		usuario.setSenha("q1r4e3w2");
-		usuario.setTipo('A');
+		usuario.setSenhaSemCriptografia("q1r4e3w2");
+		
+		SimpleHash hash = new SimpleHash("md5", usuario.getSenhaSemCriptografia());
+		usuario.setSenha(hash.toHex());
+		
+		usuario.setTipo('B');
 		usuario.setPessoa(pessoa);
 		
 		usuarioDAO.editar(usuario);
@@ -106,6 +116,19 @@ public class UsuarioDAOTest {
 						+ "\n Tipo: " + usuario.getTipo()
 						+ "\n Ativo: " + usuario.getAtivo()
 						+ "\n Nome do Usuario: " + usuario.getPessoa().getNome());
+	}
+	
+	@Ignore
+	@Test
+	public void autenticar() {
+		String cpf = "256.611.111-22";
+		String senha = "123456";
+		
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		Usuario usuario = usuarioDAO.autenticar(cpf, senha);
+		
+		System.out.println("Usuário autenticado: " + usuario);
+		
 	}
 	
 }
