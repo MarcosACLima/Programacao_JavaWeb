@@ -17,7 +17,6 @@ import org.omnifaces.util.Messages;
 
 import com.google.gson.Gson;
 
-import br.pro.dl.drogaria.dao.FabricanteDAO;
 import br.pro.dl.drogaria.domain.Fabricante;
 
 @SuppressWarnings("serial")
@@ -121,18 +120,18 @@ public class FabricanteBean implements Serializable {
 	*/
 	
 	/** Rest */
-	public void excluir() {
+	public void excluir(ActionEvent evento) {
 		try {
+			fabricante = (Fabricante) evento.getComponent().getAttributes().get("fabricanteSelecionado");
+			
 			Client cliente = ClientBuilder.newClient();
 			WebTarget caminho = cliente.target("http://localhost:8080/Drogaria/rest/fabricante");
+						
+			WebTarget caminhoexcluir = caminho.path("{codigo}").resolveTemplate("codigo", fabricante.getCodigo());
+			caminhoexcluir.request().delete();
+			String json = caminho.request().get(String.class);
+			
 			Gson gson = new Gson();
-			
-			String json = gson.toJson(fabricante);
-			caminho.request().delete(String.class); // post aceita Entity
-			
-			novo();
-			
-			json = caminho.request().get(String.class);
 			Fabricante[] vetor = gson.fromJson(json, Fabricante[].class); 
 			fabricantes = Arrays.asList(vetor);
 			

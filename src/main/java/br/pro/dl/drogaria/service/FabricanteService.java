@@ -98,14 +98,15 @@ public class FabricanteService {
 		return jsonRetorno;
 	}
 	
+	//http://localhost:8080/Drogaria/rest/fabricante/codigo
 	@DELETE
-	public String excluir(String json) {
+	@Path("{codigo}")
+	public String excluir(@PathParam("codigo") Long codigo) {
 		String jsonRetorno = null;
 		try {
-			Gson gson = new Gson();
-			Fabricante fabricante = gson.fromJson(json, Fabricante.class);
-			fabricante = new FabricanteDAO().buscar(fabricante.getCodigo()); // buscar objeto transiente
+			Fabricante fabricante = new FabricanteDAO().buscar(codigo); // buscar codigo
 			new FabricanteDAO().excluir(fabricante);
+			Gson gson = new Gson();
 			jsonRetorno = gson.toJson(fabricante);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
