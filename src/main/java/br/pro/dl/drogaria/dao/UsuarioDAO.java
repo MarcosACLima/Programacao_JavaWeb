@@ -1,25 +1,19 @@
 package br.pro.dl.drogaria.dao;
 
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import br.pro.dl.drogaria.domain.Usuario;
 import br.pro.dl.drogaria.util.HibernateUtil;
 
 public class UsuarioDAO extends GenericDAO<Usuario> {
 	
-	
-	/*
 	public Usuario autenticar(String cpf, String senha) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		
 		try{
+			@SuppressWarnings("deprecation")
 			Criteria consulta = sessao.createCriteria(Usuario.class);
 			consulta.createAlias("pessoa", "p");
 			
@@ -37,9 +31,9 @@ public class UsuarioDAO extends GenericDAO<Usuario> {
 			sessao.close();
 		}
 	}
-	*/
 	
-//	Fazer mais teste no metodo
+//	Fazer mais testes no metodo
+	/*
 	public Usuario autenticar(String cpf, String senha) {
 			Session session = HibernateUtil.getFabricaDeSessoes().openSession();
 			try {
@@ -65,5 +59,6 @@ public class UsuarioDAO extends GenericDAO<Usuario> {
 				session.close();
 			}
 		}
+		*/
 	
 }

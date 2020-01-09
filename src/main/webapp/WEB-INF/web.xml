@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-	id="WebApp_ID" version="3.1">
-
+<web-app id="WebApp_ID" version="3.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 	<!-- Nome da Aplicação -->
 	<display-name>Drogaria</display-name>
-	
-	<!-- Página Principal -->
-	<welcome-file-list>
-		<welcome-file>pages/principal.xhtml</welcome-file>
-	</welcome-file-list>
+
+	<!--Localização do Faces Config -->
+	<context-param>
+		<param-name>javax.faces.CONFIG_FILES</param-name>
+		<param-value>/WEB-INF/faces-config.xml</param-value>
+	</context-param>
 
 	<!-- Estagio do Projeto - em Desenvolvimento -->
 	<context-param>
@@ -18,17 +17,22 @@
 		<param-value>Development</param-value>
 	</context-param>
 
-	<!-- Tema do Primefaces  -->
+	<!-- Tema do Primefaces -->
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
 		<param-value>rocket</param-value>
 	</context-param>
-	
+
 	<!-- Definição do Mecanismo de Upload -->
 	<context-param>
 		<param-name>primefaces.UPLOADER</param-name>
 		<param-value>native</param-value>
 	</context-param>
+
+	<!-- Carregamento do Hibernate -->
+	<listener>
+		<listener-class>br.pro.dl.drogaria.util.HibernateContexto</listener-class>
+	</listener>
 
 	<!-- Configuracao do JSF -->
 	<servlet>
@@ -41,9 +45,8 @@
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
-	<!-- Carregamento do Hibernate -->
-	<listener>
-		<listener-class>br.pro.dl.drogaria.util.HibernateContexto</listener-class>
-	</listener>
-
+	<!-- Página Principal -->
+	<welcome-file-list>
+		<welcome-file>pages/principal.xhtml</welcome-file>
+	</welcome-file-list>
 </web-app>

@@ -10,6 +10,7 @@ import javax.faces.bean.SessionScoped;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
+import br.pro.dl.drogaria.dao.UsuarioDAO;
 import br.pro.dl.drogaria.domain.Pessoa;
 import br.pro.dl.drogaria.domain.Usuario;
 
@@ -19,6 +20,7 @@ import br.pro.dl.drogaria.domain.Usuario;
 public class AutenticacaoBean implements Serializable {
 
 	private Usuario usuario;
+	private Usuario usuarioLogado;
 	
 	@PostConstruct
 	public void inicar() {
@@ -28,6 +30,13 @@ public class AutenticacaoBean implements Serializable {
 	
 	public void autenticar() {
 		try {
+			usuarioLogado = new UsuarioDAO().autenticar(usuario.getPessoa().getCpf(), usuario.getSenha());
+			
+			if(usuarioLogado == null) {
+				Messages.addGlobalError("CPF e/ou senha incorretos");
+				return;
+			} 
+			
 			Faces.redirect("./pages/principal.xhtml");
 		} catch (IOException e) {
 			Messages.addGlobalError(e.getMessage());
@@ -41,6 +50,14 @@ public class AutenticacaoBean implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(Usuario usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
 	}
 	
 }
