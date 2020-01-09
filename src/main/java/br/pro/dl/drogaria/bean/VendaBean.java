@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+//import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -33,8 +33,9 @@ public class VendaBean implements Serializable {
 	private List<ItemVenda> itensVenda;
 	private List<Cliente> clientes;
 	private List<Funcionario> funcionarios;
+	private List<Venda> vendas;
 
-	@PostConstruct
+//	@PostConstruct
 	public void listar() {
 		try {
 			venda = new Venda();
@@ -47,7 +48,7 @@ public class VendaBean implements Serializable {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void adicionar(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
@@ -132,6 +133,10 @@ public class VendaBean implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void novo() {
+		vendas = new VendaDAO().listar();
+	}
 
 	public List<Produto> getProdutos() {
 		return produtos;
@@ -171,6 +176,14 @@ public class VendaBean implements Serializable {
 
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
+	}
+
+	public List<Venda> getVendas() {
+		return vendas;
+	}
+
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
 	}
 
 }
