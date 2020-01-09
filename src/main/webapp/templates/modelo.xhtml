@@ -26,7 +26,7 @@
 						<p:menuitem value="Sair" />
 					</p:submenu>
 
-					<p:submenu label="Cadastros">
+					<p:submenu label="Cadastros" rendered="#{autenticacaoBean.temPermissoes(['A', 'G'])}"  >
 						<p:menuitem value="Estado" url="/Drogaria/pages/estados.xhtml" />
 						<p:menuitem value="Cidade" url="/Drogaria/pages/cidades.xhtml" />
 						<p:menuitem value="Fabricante" url="/Drogaria/pages/fabricantes.xhtml" />

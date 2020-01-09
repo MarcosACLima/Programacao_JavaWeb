@@ -2,6 +2,7 @@ package br.pro.dl.drogaria.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -21,27 +22,36 @@ public class AutenticacaoBean implements Serializable {
 
 	private Usuario usuario;
 	private Usuario usuarioLogado;
-	
+
 	@PostConstruct
 	public void inicar() {
-		usuario =  new Usuario();
+		usuario = new Usuario();
 		usuario.setPessoa(new Pessoa());
 	}
-	
+
 	public void autenticar() {
 		try {
 			usuarioLogado = new UsuarioDAO().autenticar(usuario.getPessoa().getCpf(), usuario.getSenha());
-			
-			if(usuarioLogado == null) {
+
+			if (usuarioLogado == null) {
 				Messages.addGlobalError("CPF e/ou senha incorretos");
 				return;
-			} 
-			
+			}
+
 			Faces.redirect("./pages/principal.xhtml");
 		} catch (IOException e) {
 			Messages.addGlobalError(e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	public boolean temPermissoes(List<String> permissoes) {
+		for (String permissao : permissoes) {
+			if (usuarioLogado.getTipo() == (permissao.charAt(0))) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public Usuario getUsuario() {
@@ -59,6 +69,5 @@ public class AutenticacaoBean implements Serializable {
 	public void setUsuarioLogado(Usuario usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
 	}
-	
-}
 
+}
