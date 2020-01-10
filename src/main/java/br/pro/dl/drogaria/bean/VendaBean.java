@@ -134,6 +134,13 @@ public class VendaBean implements Serializable {
 		}
 	}
 	
+	public void atualizarPrecoParcial() {
+		for (ItemVenda itemVenda : this.itensVenda) {
+			itemVenda.setPrecoParcial(itemVenda.getProduto().getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
+		}
+		this.calcular();
+	}
+	
 	public void novo() {
 		vendas = new VendaDAO().listar();
 	}
