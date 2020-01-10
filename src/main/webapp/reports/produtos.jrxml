@@ -7,6 +7,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Drogaria Data Adapter "/>
 	<parameter name="PRODUTO_DESCRICAO" class="java.lang.String"/>
 	<parameter name="FABRICANTE_DESCRICAO" class="java.lang.String"/>
+	<parameter name="CAMINHO_BANNER" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT drogaria.`Produto`.descricao AS pdescricao,
 	drogaria.`Produto`.preco,
@@ -41,7 +42,7 @@ ORDER BY drogaria.`Produto`.descricao ASC,
 		<band height="79" splitType="Stretch">
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement x="107" y="2" width="341" height="75" uuid="d6c441a3-d5ad-45cc-bbd1-5279a4ea442f"/>
-				<imageExpression><![CDATA["/src/main/webapp/resources/images/logo_popular2.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{CAMINHO_BANNER}]]></imageExpression>
 			</image>
 		</band>
 	</title>

@@ -150,8 +150,13 @@ public class ProdutoBean implements Serializable {
 			String fdescricao = (String) filtros.get("fabricante.descricao");
 			
 			String caminho = Faces.getRealPath("/reports/produtos.jasper");
+			
+			String caminhoBanner = Faces.getRealPath("/resources/images/logo_popular2.png");
 
 			Map<String, Object> parametros = new HashMap<>();
+			
+			parametros.put("CAMINHO_BANNER", caminhoBanner);
+			
 			if (pdescricao == null) {
 				parametros.put("PRODUTO_DESCRICAO", "%%");
 			} else {
