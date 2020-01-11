@@ -2,7 +2,6 @@ package br.pro.dl.drogaria.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -45,6 +44,7 @@ public class AutenticacaoBean implements Serializable {
 		}
 	}
 
+	/*
 	public boolean temPermissoes(List<String> permissoes) {
 		for (String permissao : permissoes) {
 			if (usuarioLogado.getTipo() == (permissao.charAt(0))) {
@@ -53,7 +53,8 @@ public class AutenticacaoBean implements Serializable {
 		}
 		return false;
 	}
-
+*/
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}

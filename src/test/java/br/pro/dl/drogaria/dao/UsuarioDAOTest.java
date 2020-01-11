@@ -10,6 +10,7 @@ import br.pro.dl.drogaria.dao.PessoaDAO;
 import br.pro.dl.drogaria.dao.UsuarioDAO;
 import br.pro.dl.drogaria.domain.Pessoa;
 import br.pro.dl.drogaria.domain.Usuario;
+import br.pro.dl.drogaria.enumeracao.TipoUsuario;
 
 public class UsuarioDAOTest {
 	
@@ -17,7 +18,7 @@ public class UsuarioDAOTest {
 	@Test
 	public void salvar() {
 		PessoaDAO pessoaDAO = new PessoaDAO();
-		Pessoa pessoa = pessoaDAO.buscar(3L);
+		Pessoa pessoa = pessoaDAO.buscar(8L);
 		
 		
 		Usuario usuario = new Usuario();
@@ -26,8 +27,8 @@ public class UsuarioDAOTest {
 		SimpleHash hash = new SimpleHash("md5", usuario.getSenhaSemCriptografia());
 		usuario.setSenha(hash.toHex());
 		
-		usuario.setTipo('A');
-		usuario.setAtivo(true);
+		usuario.setTipoUsuario(TipoUsuario.BALCONISTA);
+		usuario.setAtivo(false);
 		usuario.setPessoa(pessoa);
 		
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -43,7 +44,7 @@ public class UsuarioDAOTest {
 		for (Usuario usuario : resultado) {
 			System.out.println("\n Codigo Usuario: " + usuario.getCodigo()
 							+ "\n Senha: " + usuario.getSenha()
-							+ "\n Tipo: " + usuario.getTipo()
+							+ "\n Tipo: " + usuario.getTipoUsuario()
 							+ "\n Ativo: " + usuario.getAtivo()
 							+ "\n Nome do Usuario: " + usuario.getPessoa().getNome());
 		}
@@ -59,7 +60,7 @@ public class UsuarioDAOTest {
 		
 		System.out.println("\n Codigo Usuario: " + usuario.getCodigo()
 						+ "\n Senha: " + usuario.getSenha()
-						+ "\n Tipo: " + usuario.getTipo()
+						+ "\n Tipo: " + usuario.getTipoUsuario()
 						+ "\n Ativo: " + usuario.getAtivo()
 						+ "\n Nome do Usuario: " + usuario.getPessoa().getNome());
 	}
@@ -76,7 +77,7 @@ public class UsuarioDAOTest {
 		
 		System.out.println("\n Codigo Usuario: " + usuario.getCodigo()
 						+ "\n Senha: " + usuario.getSenha()
-						+ "\n Tipo: " + usuario.getTipo()
+						+ "\n Tipo: " + usuario.getTipoUsuario()
 						+ "\n Ativo: " + usuario.getAtivo()
 						+ "\n Nome do Usuario: " + usuario.getPessoa().getNome());
 	}
@@ -92,7 +93,7 @@ public class UsuarioDAOTest {
 		System.out.println("Usuario antes de editar: ");
 		System.out.println("\n Codigo Usuario: " + usuario.getCodigo()
 						+ "\n Senha: " + usuario.getSenha()
-						+ "\n Tipo: " + usuario.getTipo()
+						+ "\n Tipo: " + usuario.getTipoUsuario()
 						+ "\n Ativo: " + usuario.getAtivo()
 						+ "\n Nome do Usuario: " + usuario.getPessoa().getNome());
 		
@@ -105,7 +106,7 @@ public class UsuarioDAOTest {
 		SimpleHash hash = new SimpleHash("md5", usuario.getSenhaSemCriptografia());
 		usuario.setSenha(hash.toHex());
 		
-		usuario.setTipo('B');
+		usuario.setTipoUsuario(TipoUsuario.BALCONISTA);
 		usuario.setPessoa(pessoa);
 		
 		usuarioDAO.editar(usuario);
@@ -113,7 +114,7 @@ public class UsuarioDAOTest {
 		System.out.println("Usuario apos de editar: ");
 		System.out.println("\n Codigo Usuario: " + usuario.getCodigo()
 						+ "\n Senha: " + usuario.getSenha()
-						+ "\n Tipo: " + usuario.getTipo()
+						+ "\n Tipo: " + usuario.getTipoUsuario()
 						+ "\n Ativo: " + usuario.getAtivo()
 						+ "\n Nome do Usuario: " + usuario.getPessoa().getNome());
 	}

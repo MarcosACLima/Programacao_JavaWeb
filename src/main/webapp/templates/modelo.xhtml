@@ -5,9 +5,9 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	
-<ui:insert name="metadata" />	
-	
+
+<ui:insert name="metadata" />
+
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>SIGDro</title>
@@ -29,13 +29,13 @@
 						<p:menuitem value="Sair" />
 					</p:submenu>
 
-					<p:submenu label="Cadastros" rendered="#{autenticacaoBean.temPermissoes(['A', 'G'])}"  >
+					<p:submenu label="Cadastros" rendered="true" >
 						<p:menuitem value="Estado" url="/Drogaria/pages/estados.xhtml" />
 						<p:menuitem value="Cidade" url="/Drogaria/pages/cidades.xhtml" />
 						<p:menuitem value="Fabricante" url="/Drogaria/pages/fabricantes.xhtml" />
 						<p:menuitem value="Pessoa" url="/Drogaria/pages/pessoas.xhtml" />
 						<p:menuitem value="Cliente" url="/Drogaria/pages/clientes.xhtml" />
-						<p:menuitem value="Funcionário" url="/Drogaria/pages/funcionarios.xhtml" />
+						<p:menuitem value="Funcionário"	url="/Drogaria/pages/funcionarios.xhtml" />
 						<p:menuitem value="Produto" url="/Drogaria/pages/produtos.xhtml" />
 					</p:submenu>
 

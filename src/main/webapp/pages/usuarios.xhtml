@@ -36,9 +36,9 @@
 					<h:outputText value="#{usuario.pessoa.cpf}" />
 				</p:column>
 
-				<p:column headerText="Tipo" filterBy="#{usuario.tipoFormatado}"
-					sortBy="#{usuario.tipoFormatado}">
-					<h:outputText value="#{usuario.tipoFormatado}" />
+				<p:column headerText="Tipo" filterBy="#{usuario.tipoUsuario.toString()}"
+					sortBy="#{usuario.tipoUsuario.toString()}">
+					<h:outputText value="#{usuario.tipoUsuario.toString()}" />
 				</p:column>
 
 				<p:column headerText="Ativo" filterBy="#{usuario.ativoFormatado}"
@@ -91,18 +91,18 @@
 				</p:selectOneMenu>
 
 				<p:outputLabel for="senha" value="Senha:" />
-				<p:password id="senha" maxlength="8" size="10" value="#{usuarioBean.usuario.senha}" 
+				<p:password id="senha" maxlength="8" size="10" value="#{usuarioBean.usuario.senhaSemCriptografia}" 
 					required="true" requiredMessage="O campo 'Senha' é obrigatório" 
 					validatorMessage="Informe uma senha de 4 a 8 caracteres">
 					<f:validateLength minimum="4" maximum="8"/>
 				</p:password>
 
 				<p:outputLabel for="tipo" value="Tipo:" />
-				<p:selectOneRadio id="tipo" value="#{usuarioBean.usuario.tipo}"  
+				<p:selectOneRadio id="tipo" value="#{usuarioBean.usuario.tipoUsuario}"  
 					required="true" requiredMessage="O campo 'Tipo' é obrigatório" >
-					<f:selectItem itemValue="A" itemLabel="Administrador" />
-					<f:selectItem itemValue="B" itemLabel="Balconista" />
-					<f:selectItem itemValue="G" itemLabel="Geremte" />
+					<f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador" />
+					<f:selectItem itemValue="BALCONISTA" itemLabel="Balconista" />
+					<f:selectItem itemValue="GERENTE" itemLabel="Geremte" />
 				</p:selectOneRadio>
 
 				<p:outputLabel for="ativo" value="Ativo:" />

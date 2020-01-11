@@ -2,9 +2,13 @@ package br.pro.dl.drogaria.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+
+import br.pro.dl.drogaria.enumeracao.TipoUsuario;
 
 @SuppressWarnings("serial")
 @Entity
@@ -17,8 +21,9 @@ public class Usuario extends GenericDomain{
 	private String senhaSemCriptografia;
 	
 	@Column(nullable = false)
-	private Character tipo;
-	
+	@Enumerated(EnumType.STRING)
+	private TipoUsuario tipoUsuario;
+
 	@Column(nullable = false)
 	private Boolean ativo;
 	
@@ -33,26 +38,13 @@ public class Usuario extends GenericDomain{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
-	public Character getTipo() {
-		return tipo;
-	}
 	
-	@Transient
-	public String getTipoFormatado() {
-		String tipoFormatado = null;
-		if (tipo.equals('A')) {
-			tipoFormatado = "Administrador";
-		} else if (tipo.equals('B')) {
-			tipoFormatado = "Balconista";
-		} else if (tipo.equals('G')) {
-			tipoFormatado = "Gerente";
-		} 
-		return tipoFormatado;
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
 	}
 
-	public void setTipo(Character tipo) {
-		this.tipo = tipo;
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 
 	public Boolean getAtivo() {

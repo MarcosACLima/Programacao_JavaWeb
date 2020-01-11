@@ -8,12 +8,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.omnifaces.util.Messages;
 
-import br.pro.dl.drogaria.dao.ClienteDAO;
 import br.pro.dl.drogaria.dao.PessoaDAO;
 import br.pro.dl.drogaria.dao.UsuarioDAO;
-import br.pro.dl.drogaria.domain.Cliente;
 import br.pro.dl.drogaria.domain.Pessoa;
 import br.pro.dl.drogaria.domain.Usuario;
 
@@ -29,7 +28,7 @@ public class UsuarioBean implements Serializable {
 	@PostConstruct
 	public void listar() {
 		try {
-			usuarios = new UsuarioDAO().listar("tipo");
+			usuarios = new UsuarioDAO().listar("tipoUsuario");
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar listar ps usuarios");
 		}
@@ -47,9 +46,12 @@ public class UsuarioBean implements Serializable {
 	
 	public void salvar() {
 		try {
+			SimpleHash hash = new SimpleHash("md5", usuario.getSenhaSemCriptografia());
+			usuario.setSenha(hash.toHex());
+			
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			usuarioDAO.merge(usuario);
-			usuarios = usuarioDAO.listar("tipo");
+			usuarios = usuarioDAO.listar("tipoUsuario");
 			novo();
 			Messages.addGlobalInfo("Usuario salvo com sucesso!");
 	} catch (RuntimeException e) {
@@ -73,7 +75,7 @@ public class UsuarioBean implements Serializable {
 		try {
 			usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
 			new UsuarioDAO().excluir(usuario);
-			usuarios = new UsuarioDAO().listar("tipo");
+			usuarios = new UsuarioDAO().listar("tipoUsuario");
 			Messages.addGlobalInfo("Usuario removido com sucesso!");
 		} catch (RuntimeException e) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o Usuario");
