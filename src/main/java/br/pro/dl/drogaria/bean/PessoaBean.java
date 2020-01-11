@@ -2,14 +2,20 @@ package br.pro.dl.drogaria.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
 
 import org.omnifaces.util.Messages;
+
+import com.google.gson.Gson;
 
 import br.pro.dl.drogaria.dao.CidadeDAO;
 import br.pro.dl.drogaria.dao.EstadoDAO;
@@ -40,6 +46,7 @@ public class PessoaBean implements Serializable {
 		}
 	}
 	
+	/*
 	public void novo() {
 		try {
 			pessoa = new Pessoa();
@@ -50,6 +57,27 @@ public class PessoaBean implements Serializable {
 			cidades = new ArrayList<Cidade>(); /// iniciar cidade vazia
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("ocorreu um erro ao tentar gerar uma nova pessoa");
+			e.printStackTrace();
+		}
+	}
+	*/
+	
+	public void novo() {
+		try {
+			pessoa = new Pessoa();
+			estado = new Estado();
+			
+			Client cliente = ClientBuilder.newClient();
+			WebTarget caminho = cliente.target("http://127.0.0.1:8080/Drogaria/rest/estado");
+			String json = caminho.request().get(String.class);
+			
+			Gson gson = new Gson();
+			Estado[] vetor = gson.fromJson(json, Estado[].class);
+			estados = Arrays.asList(vetor);
+			
+			cidades = new ArrayList<>();
+		} catch (RuntimeException e) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar uma nova pessoa");
 			e.printStackTrace();
 		}
 	}
@@ -97,6 +125,8 @@ public class PessoaBean implements Serializable {
 		}
 	}
 	
+	
+/*
 	public void popular() {
 		try {
 			if(estado != null) {
@@ -106,9 +136,31 @@ public class PessoaBean implements Serializable {
 			}
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Ocorrey um erro ao tentar filtrar as Cidades");
+			e.printStackTrace();
+
 		}
 	}
-
+*/
+	
+	public void popular() {
+		try {
+			if (estado != null) {
+				Client cliente = ClientBuilder.newClient();
+				WebTarget caminho = cliente.target("http://127.0.0.1:8080/Drogaria/rest/cidade/{estadoCodigo}").resolveTemplate("estadoCodigo", estado.getCodigo());
+				String json = caminho.request().get(String.class);
+				
+				Gson gson = new Gson();
+				Cidade[] vetor = gson.fromJson(json, Cidade[].class);
+				cidades = Arrays.asList(vetor);
+			} else {
+				cidades = new ArrayList<>();
+			}
+		} catch (RuntimeException e) {
+			Messages.addGlobalError("Ocorrey um erro ao tentar filtrar as Cidades");
+			e.printStackTrace();
+		}
+	}
+	
 	public List<Pessoa> getPessoas() {
 		return pessoas;
 	}
