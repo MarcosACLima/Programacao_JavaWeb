@@ -8,4 +8,14 @@
 		<phase-listener>br.pro.dl.drogaria.util.AutenticacaoListener</phase-listener>
 	</lifecycle>
 
+	<application>
+		<locale-config>
+			<default-locale>en</default-locale>
+		</locale-config>
+		<resource-bundle>
+			<base-name>mensagens</base-name>
+			<var>msg</var>
+		</resource-bundle>
+	</application>
+
 </faces-config>

@@ -10,12 +10,12 @@
 	<ui:define name="conteudo">
 
 		<h:form id="formListagem">
-			<p:panel header="Usuarios - Listagem">
-				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+			<p:panel header="#{msg.cabecalhoPainel}">
+				<p:dataTable id="tabela" emptyMessage="#{msg.msgSemRegistro}"
 					paginator="true" value="#{usuarioBean.usuarios}" var="usuario"
 					rows="10">
 					<f:facet name="header">
-						<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+						<p:commandButton value="#{msg.botaoNovo}" oncomplete="PF('dialogo').show();"
 							actionListener="#{usuarioBean.novo}"
 							update=":mensagem :formCadastro:painel">
 							<f:actionListener
@@ -23,7 +23,7 @@
 						</p:commandButton>
 					</f:facet>
 
-					<p:column headerText="Nome" filterBy="#{usuario.pessoa.nome}"
+					<p:column headerText="#{msg.cabecalhoNome}" filterBy="#{usuario.pessoa.nome}"
 						sortBy="#{usuario.pessoa.nome}">
 						<h:outputText value="#{usuario.pessoa.nome}" />
 					</p:column>
@@ -33,23 +33,23 @@
 						<h:outputText value="#{usuario.pessoa.cpf}" />
 					</p:column>
 
-					<p:column headerText="Tipo"
+					<p:column headerText="#{msg.cabecalhoTipo}"
 						filterBy="#{usuario.tipoUsuario.toString()}"
 						sortBy="#{usuario.tipoUsuario.toString()}">
 						<h:outputText value="#{usuario.tipoUsuario.toString()}" />
 					</p:column>
 
-					<p:column headerText="Ativo" filterBy="#{usuario.ativoFormatado}"
+					<p:column headerText="#{msg.cabecalhoAtivo}" filterBy="#{usuario.ativoFormatado}"
 						sortBy="#{usuario.ativoFormatado}">
 						<h:outputText value="#{usuario.ativoFormatado}" />
 					</p:column>
 
-					<p:column headerText="Opções">
+					<p:column headerText="#{msg.cabecalhoOpcoes}">
 						<p:commandButton icon="ui-icon-trash"
 							actionListener="#{usuarioBean.excluir}"
 							update=":mensagem :formListagem:tabela">
-							<p:confirm header="Confirmação"
-								message="Deseja excluir este Usuario" icon="ui-icon-alert" />
+							<p:confirm header="#{msg.cabecalhoConfirmacao}"
+								message="#{msg.msgExcluir}" icon="ui-icon-alert" />
 							<f:attribute name="usuarioSelecionado" value="#{usuario}" />
 						</p:commandButton>
 
@@ -66,59 +66,59 @@
 				</p:dataTable>
 
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-					<p:commandButton value="Sim" type="button"
+					<p:commandButton value="#{msg.botaoSim}" type="button"
 						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-					<p:commandButton value="Não" type="button"
+					<p:commandButton value="#{msg.botaoNao}" type="button"
 						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 				</p:confirmDialog>
 
 			</p:panel>
 		</h:form>
 
-		<p:dialog header="Usuarios - Cadastro" widgetVar="dialogo"
+		<p:dialog header="#{msg.dialogoCadastro}" widgetVar="dialogo"
 			draggable="false" resizable="false" modal="true" closable="false">
 			<h:form id="formCadastro">
 				<h:panelGrid id="painel" columns="2">
-					<p:outputLabel for="pessoa" value="Pessoa:" />
+					<p:outputLabel for="pessoa" value="#{msg.cadastroPessoa}" />
 					<p:selectOneMenu id="pessoa" filter="true"
 						value="#{usuarioBean.usuario.pessoa}"
 						converter="omnifaces.SelectItemsConverter" required="true"
-						requiredMessage="O campo 'Pessoa' é obrigatório">
+						requiredMessage="#{msg.pessoaObrigatorio}">
 						<f:selectItem noSelectionOption="true"
-							itemLabel="Selecione uma pessoa" />
+							itemLabel="#{msg.selecionaPessoa}" />
 						<f:selectItems value="#{usuarioBean.pessoas}" var="pessoa"
 							itemValue="#{pessoa}" itemLabel="#{pessoa.nome} - #{pessoa.cpf}" />
 					</p:selectOneMenu>
 
-					<p:outputLabel for="senha" value="Senha:" />
+					<p:outputLabel for="senha" value="#{msg.cadastroSenha}" />
 					<p:password id="senha" maxlength="8" size="10"
 						value="#{usuarioBean.usuario.senhaSemCriptografia}"
-						required="true" requiredMessage="O campo 'Senha' é obrigatório"
-						validatorMessage="Informe uma senha de 4 a 8 caracteres">
+						required="true" requiredMessage="#{msg.senhaObrigatorio}"
+						validatorMessage="#{msg.msgTamanhoSenha}">
 						<f:validateLength minimum="4" maximum="8" />
 					</p:password>
 
-					<p:outputLabel for="tipo" value="Tipo:" />
+					<p:outputLabel for="tipo" value="#{msg.cadastroTipo}" />
 					<p:selectOneRadio id="tipo"
 						value="#{usuarioBean.usuario.tipoUsuario}" required="true"
-						requiredMessage="O campo 'Tipo' é obrigatório">
-						<f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador" />
-						<f:selectItem itemValue="BALCONISTA" itemLabel="Balconista" />
-						<f:selectItem itemValue="GERENTE" itemLabel="Geremte" />
+						requiredMessage="#{msg.tipoObrigatorio}">
+						<f:selectItem itemValue="ADMINISTRADOR" itemLabel="#{msg.tipoAdm}" />
+						<f:selectItem itemValue="BALCONISTA" itemLabel="#{msg.tipoBalconista}" />
+						<f:selectItem itemValue="GERENTE" itemLabel="#{msg.tipoGerente}" />
 					</p:selectOneRadio>
 
-					<p:outputLabel for="ativo" value="Ativo:" />
+					<p:outputLabel for="ativo" value="#{msg.cadastroAtivo}" />
 					<p:selectBooleanCheckbox id="ativo"
 						value="#{usuarioBean.usuario.ativo}" required="true"
-						requiredMessage="O campo 'Ativo' é obrigatório" />
+						requiredMessage="#{msg.ativoObrigatorio}" />
 
 				</h:panelGrid>
 
 				<h:panelGrid columns="2">
-					<p:commandButton value="Salvar"
+					<p:commandButton value="#{msg.botaoSalvar}"
 						actionListener="#{usuarioBean.salvar}"
 						update=":mensagem :formCadastro:painel :formListagem:tabela" />
-					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+					<p:commandButton value="#{msg.botaoFechar}" oncomplete="PF('dialogo').hide();" />
 				</h:panelGrid>
 
 			</h:form>

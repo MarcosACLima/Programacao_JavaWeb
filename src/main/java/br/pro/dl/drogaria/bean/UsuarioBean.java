@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
 import br.pro.dl.drogaria.dao.PessoaDAO;
@@ -30,7 +31,7 @@ public class UsuarioBean implements Serializable {
 		try {
 			usuarios = new UsuarioDAO().listar("tipoUsuario");
 		} catch (RuntimeException e) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar listar ps usuarios");
+			Messages.addGlobalError(Faces.getResourceBundle("msg").getString("erroListarUsuario"));
 		}
 	}
 	
@@ -39,7 +40,7 @@ public class UsuarioBean implements Serializable {
 			usuario = new Usuario();
 			pessoas = new PessoaDAO().listar("nome");
 		} catch (RuntimeException e) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar gerar um novo usuario");
+			Messages.addGlobalError(Faces.getResourceBundle("msg").getString("erroNovoUsuario"));
 			e.printStackTrace();
 		}
 	}
@@ -53,9 +54,9 @@ public class UsuarioBean implements Serializable {
 			usuarioDAO.merge(usuario);
 			usuarios = usuarioDAO.listar("tipoUsuario");
 			novo();
-			Messages.addGlobalInfo("Usuario salvo com sucesso!");
+			Messages.addGlobalInfo(Faces.getResourceBundle("msg").getString("usuarioSalvo"));
 	} catch (RuntimeException e) {
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar um novo Usuario");
+			Messages.addFlashGlobalError(Faces.getResourceBundle("msg").getString("erroSalvarUsuario"));
 			e.printStackTrace();
 	}
 		
@@ -66,7 +67,7 @@ public class UsuarioBean implements Serializable {
 			usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
 			pessoas = new PessoaDAO().listar("nome");
 		} catch (RuntimeException e) {
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar editar o Usuario");
+			Messages.addFlashGlobalError(Faces.getResourceBundle("msg").getString("erroEditarUsuario"));
 			e.printStackTrace();
 		}
 	}
@@ -76,9 +77,9 @@ public class UsuarioBean implements Serializable {
 			usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
 			new UsuarioDAO().excluir(usuario);
 			usuarios = new UsuarioDAO().listar("tipoUsuario");
-			Messages.addGlobalInfo("Usuario removido com sucesso!");
+			Messages.addGlobalInfo(Faces.getResourceBundle("msg").getString("usuarioExcluido"));
 		} catch (RuntimeException e) {
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o Usuario");
+			Messages.addFlashGlobalError(Faces.getResourceBundle("msg").getString("erroExcluirUsuario"));
 			e.printStackTrace();
 		}
 	}
